@@ -1,0 +1,4 @@
+{
+    "connection_string": "file:/Users/vatsalyagoel/Source/samples/perf-test-comparision/db/weather.db",
+    "port": 8080
+}
