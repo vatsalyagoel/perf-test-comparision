@@ -1,31 +1,24 @@
 using Dapper;
-using dotnet.Dapper;
+using DotnetWeather.Dapper;
+using DotnetWeather.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotnet.Controllers;
+namespace DotnetWeather.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class WeatherForecastController(DataContext context, ILogger<WeatherForecastController> logger)
+    : ControllerBase
 {
     private static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    private readonly ILogger<WeatherForecastController> _logger;
-    private readonly DataContext _context;
-
-    public WeatherForecastController(DataContext context, ILogger<WeatherForecastController> logger)
-    {
-        _context = context;
-        _logger = logger;
-    }
-
     [HttpGet("{city}", Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get(string city = "london")
     {
-        _logger.LogInformation("GetWeatherForecast called");
+        logger.LogInformation("GetWeatherForecast called");
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
@@ -39,7 +32,7 @@ public class WeatherForecastController : ControllerBase
     [HttpGet("db/{city}", Name = "GetWeatherForecastFromDb")]
     public async Task<IEnumerable<WeatherForecast>> GetFromDB(string city = "London")
     {
-        using var connection = _context.CreateConnection();
+        using var connection = context.CreateConnection();
         var sql = """
                       SELECT * FROM WeatherForecast
                       WHERE city = @city

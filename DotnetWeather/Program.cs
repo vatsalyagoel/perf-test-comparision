@@ -1,5 +1,5 @@
 using Dapper;
-using dotnet.Dapper;
+using DotnetWeather.Dapper;
 
 var builder = WebApplication.CreateBuilder(args);
 

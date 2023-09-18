@@ -12,7 +12,7 @@ import (
 
 func RegisterProductRoutes(router *mux.Router) {
 	router.HandleFunc("/api/WeatherForecast/{city}", controllers.GetWeatherForecast).Methods("GET")
-	router.HandleFunc("/api/WeatherForecastFromDb/{city}", controllers.GetWeatherForecastFromDb).Methods("GET")
+	router.HandleFunc("/api/WeatherForecast/db/{city}", controllers.GetWeatherForecastFromDb).Methods("GET")
 }
 
 func main() {

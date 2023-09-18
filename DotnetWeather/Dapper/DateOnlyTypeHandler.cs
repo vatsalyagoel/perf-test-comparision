@@ -1,7 +1,7 @@
 using System.Data;
 using Dapper;
 
-namespace dotnet.Dapper;
+namespace DotnetWeather.Dapper;
 
 public class DateOnlyTypeHandler : SqlMapper.TypeHandler<DateOnly>
 {
