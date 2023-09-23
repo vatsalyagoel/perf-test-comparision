@@ -7,18 +7,16 @@ namespace DotnetWeather.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController(DataContext context, ILogger<WeatherForecastController> logger)
+public class WeatherForecastController(DataContext context)
     : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
+    private static readonly string[] Summaries = {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
     [HttpGet("{city}", Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get(string city = "london")
     {
-        logger.LogInformation("GetWeatherForecast called");
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
